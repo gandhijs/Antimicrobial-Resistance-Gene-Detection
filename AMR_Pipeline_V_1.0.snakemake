@@ -1,0 +1,64 @@
+SAMPLE, NUM = glob_wildcards("/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/{sample, [^_]+}_{num}.fastq")
+
+rule all:
+    input:
+        # get the raw paired end reads
+        expand("/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/{sample}_{num}.fastq", zip, sample=SAMPLE, num=[1, 2]),
+        # readMetrics from CG_Pipeline for PE read 1
+        expand("/home/gandhijs/isolates_flagged_mcr-1/CG_pipeline_results/{sample}_1_read_metrics.txt", sample=SAMPLE),
+        # readMetrics from CG_Pipeline for PE read 2 
+        expand("/home/gandhijs/isolates_flagged_mcr-1/CG_pipeline_results/{sample}_2_read_metrics.txt", sample=SAMPLE),
+	# trimmomatic with PE read 1 and PE read 2 to generate 4 output files
+        expand("/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_1P.fastq", sample=SAMPLE),
+	expand("/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_1U.fastq", sample=SAMPLE),
+        expand("/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_2P.fastq", sample=SAMPLE),
+        expand("/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_2U.fastq", sample=SAMPLE),
+        # shovill
+        expand("/home/gandhijs/isolates_flagged_mcr-1/assembly_output/{sample}_assembly_output", sample=SAMPLE),
+        # resfinder
+        expand("/home/gandhijs/isolates_flagged_mcr-1/resfinder_output/{sample}_resfinder_output", sample=SAMPLE),
+rule readMetrics:
+    input:
+        read1="/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/{sample}_1.fastq",
+	read2="/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/{sample}_2.fastq"	
+    output:	
+        read1="/home/gandhijs/isolates_flagged_mcr-1/CG_pipeline_results/{sample}_1_read_metrics.txt",
+	read2="/home/gandhijs/isolates_flagged_mcr-1/CG_pipeline_results/{sample}_2_read_metrics.txt"
+    threads:
+        1
+    shell:
+        """
+	run_assembly_readMetrics.pl --fast {input.read1} -e \"5000000" > {output.read1}
+        run_assembly_readMetrics.pl --fast {input.read2} -e \"5000000" > {output.read2}
+        """
+
+rule trimmomatic:
+    input:
+        read1="/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/{sample}_1.fastq",
+        read2="/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/{sample}_2.fastq"
+    output:
+        read1_P="/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_1P.fastq",
+        read1_U="/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_1U.fastq",
+        read2_P="/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_2P.fastq",
+        read2_U="/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_2U.fastq"
+    threads:
+        1    
+    shell:
+        "sh trimmomatic PE {input.read1} {input.read2} {output.read1_P} {output.read1_U} {output.read2_P} {output.read2_U} SLIDINGWINDOW:4:30"
+
+rule shovill:
+    input:
+        read1="/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_1P.fastq",
+        read2="/home/gandhijs/isolates_flagged_mcr-1/trimmomatic_results/{sample}_2P.fastq"    
+    output:
+        "/home/gandhijs/isolates_flagged_mcr-1/assembly_output/{sample}_assembly_output"
+    shell:
+        "shovill --outdir {output} --R1 {input.read1} --R2 {input.read2}"
+
+rule resfinder:
+    input:
+        contig="/home/gandhijs/isolates_flagged_mcr-1/assembly_output/{sample}_assembly_output/spades/contigs.fasta"
+    output:
+        "/home/gandhijs/isolates_flagged_mcr-1/resfinder_output/{sample}_resfinder_output"
+    run:
+        "python3 bin/resfinder/resfinder.py -i {input.contig} -o {output} -p bin/resfinder/resfinder_db -b blastn -t 0.90 -l 0.60" 

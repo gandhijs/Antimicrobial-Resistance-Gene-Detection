@@ -1,0 +1,7 @@
+File,avgReadLength,totalBases,minReadLength,maxReadLength,avgQuality,numReads,PE?,coverage,readScore,medianFragmentLength
+/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/SRR5956151_1.fastq,241.82,267105024,35,251,36.71,1104551,no,53.42,.,.
+/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/SRR5956151_2.fastq,242.22,267547782,35,251,33.94,1104551,no,53.50,.,.
+/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/SRR5184275_1.fastq,244.37,186509686,35,251,35.65,763213,no,37.30,.,.
+/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/SRR5184275_2.fastq,245.28,187205499,35,251,31.54,763213,no,37.44,.,.
+/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/SRR8568122_1.fastq,244.84,91590041,35,251,36.53,374068,no,18.31,.,.
+/home/gandhijs/isolates_flagged_mcr-1/raw_isolate_data/SRR8568122_2.fastq,244.88,91602896,35,251,34.53,374068,no,18.32,.,.

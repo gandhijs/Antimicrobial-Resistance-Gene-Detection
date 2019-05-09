@@ -1,0 +1,7 @@
+Reference-ID,Query-ID,MASH-distance,P-value,Matching-hashes
+refseq-NZ-745016-PRJNA224116-SAMN02568546-NZ_AHUX-.-Salmonella_enterica_subsp._enterica_serovar_Montevideo_str..fna,/home/gandhijs/isolates_flagged_mcr-1/mash_output/SRR8568122.fastq,0.0101041,0,679/1000
+refseq-NZ-1365218-PRJNA224116-SAMN02415266-NZ_AUVD-.-Salmonella_enterica_subsp._enterica_serovar_Typhimurium_str._ST1489.fna,/home/gandhijs/isolates_flagged_mcr-1/mash_output/SRR5184275.fastq,0.00912584,0,703/1000
+refseq-NZ-745016-PRJNA224116-SAMN02568546-NZ_AHUX-.-Salmonella_enterica_subsp._enterica_serovar_Montevideo_str..fna,/home/gandhijs/isolates_flagged_mcr-1/mash_output/SRR8568122.fastq,0.0101041,0,679/1000
+refseq-NZ-1365218-PRJNA224116-SAMN02415266-NZ_AUVD-.-Salmonella_enterica_subsp._enterica_serovar_Typhimurium_str._ST1489.fna,/home/gandhijs/isolates_flagged_mcr-1/mash_output/SRR5184275.fastq,0.00912584,0,703/1000
+refseq-NZ-796730-PRJNA224116-SAMN01813481-GCF_000272775.3-.-Salmonella_enterica_subsp._enterica_serovar_Newport_str._CVM_22425.fna,/home/gandhijs/isolates_flagged_mcr-1/mash_output/SRR5956151.fastq,0.00960897,0,691/1000
+refseq-NZ-745016-PRJNA224116-SAMN02568546-NZ_AHUX-.-Salmonella_enterica_subsp._enterica_serovar_Montevideo_str..fna,/home/gandhijs/isolates_flagged_mcr-1/mash_output/SRR8568122.fastq,0.0101041,0,679/1000

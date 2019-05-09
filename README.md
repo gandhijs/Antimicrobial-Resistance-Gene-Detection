@@ -7,3 +7,4 @@ Snakemake pipeline for detecting Antibiotic-Resistance Genes using raw paired-en
   - Shovill
   - Quast
   - Resfinder
+  - Staramr
